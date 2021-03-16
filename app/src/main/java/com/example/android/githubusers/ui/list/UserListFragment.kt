@@ -8,6 +8,7 @@ import com.example.android.githubusers.R
 import com.example.android.githubusers.data.Response
 import com.example.android.githubusers.di.ViewModelFactory
 import com.example.android.githubusers.ui.base.BaseFragment
+import com.example.android.githubusers.ui.detail.UserDetailInfoFragment
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import javax.inject.Inject
 
@@ -25,6 +26,11 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getUserList()
+        userListAdapter.onItemClickListener = { // реализация навигации тут говно, не смотрите
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragment_container, UserDetailInfoFragment.newInstance(it.login))
+                ?.commit()
+        }
         recyclerView.adapter = userListAdapter
 
         recyclerView.addOnScrollListener(onScroll)
