@@ -2,7 +2,7 @@ package com.example.android.githubusers.ui.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.githubusers.data.Response
+import com.example.android.githubusers.utils.Response
 import com.example.android.githubusers.extensions.async
 import com.example.android.githubusers.extensions.convert
 import io.reactivex.Flowable

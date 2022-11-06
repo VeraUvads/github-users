@@ -1,6 +1,6 @@
 package com.example.android.githubusers.extensions
 
-import com.example.android.githubusers.data.Response
+import com.example.android.githubusers.utils.Response
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

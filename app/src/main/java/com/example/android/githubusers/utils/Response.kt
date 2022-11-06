@@ -1,4 +1,4 @@
-package com.example.android.githubusers.data
+package com.example.android.githubusers.utils
 
 sealed class Response<T> {
 

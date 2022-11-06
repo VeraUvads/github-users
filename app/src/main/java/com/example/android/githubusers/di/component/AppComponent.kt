@@ -1,29 +1,24 @@
 package com.example.android.githubusers.di.component
 
-import com.example.android.githubusers.App
-import com.example.android.githubusers.di.module.*
-import dagger.BindsInstance
+import com.example.android.githubusers.MainActivity
+import com.example.android.githubusers.di.module.NetworkModule
+import com.example.android.githubusers.di.module.RepositoryModule
+import com.example.android.githubusers.di.module.ViewModelModule
+import com.example.android.githubusers.ui.detail.UserDetailInfoFragment
+import com.example.android.githubusers.ui.list.UserListFragment
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-@Singleton
 @Component(
     modules = [
-        AppModule::class,
-        AndroidSupportInjectionModule::class,
+        NetworkModule::class,
         RepositoryModule::class,
-        InteractorModule::class,
-        ViewModelModule::class,
-        FragmentModule::class,
-        ActivityModule::class
+        ViewModelModule::class
     ]
 )
-interface AppComponent : AndroidInjector<App> {
-
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance applicationContext: App): AppComponent
-    }
+@Singleton
+interface AppComponent {
+    fun injectMainActivity(mainActivity: MainActivity)
+    fun inject(userListFragment: UserListFragment)
+    fun inject(userListFragment: UserDetailInfoFragment)
 }

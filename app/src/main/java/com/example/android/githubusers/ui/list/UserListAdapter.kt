@@ -29,7 +29,7 @@ class UserListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun addContent(users: List<User>) {
         this.userList.addAll(users)
-        notifyDataSetChanged()
+        notifyDataSetChanged() // todo 
     }
 
     inner class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

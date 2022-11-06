@@ -1,18 +1,14 @@
 package com.example.android.githubusers
 
-import com.example.android.githubusers.data.EndpointProvider
+import android.app.Application
+import com.example.android.githubusers.di.component.AppComponent
 import com.example.android.githubusers.di.component.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 
-class App : DaggerApplication() {
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
-    }
+class App: Application() {
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
-        EndpointProvider.createEndpoint()
+        appComponent = DaggerAppComponent.create()
     }
 }
