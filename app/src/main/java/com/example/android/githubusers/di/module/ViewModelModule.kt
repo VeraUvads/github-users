@@ -3,12 +3,12 @@ package com.example.android.githubusers.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.githubusers.di.ViewModelFactory
+import com.example.android.githubusers.di.util.ViewModelKey
 import com.example.android.githubusers.ui.detail.UserDetailInfoViewModel
 import com.example.android.githubusers.ui.list.UserListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.handh.vseinstrumenti.di.util.ViewModelKey
 
 @Module
 abstract class ViewModelModule {
@@ -22,7 +22,6 @@ abstract class ViewModelModule {
     internal abstract fun userListViewModel(viewModel: UserListViewModel): ViewModel
 
     @Binds
-    @IntoMap
-    @ViewModelKey(UserDetailInfoViewModel::class)
+    @[IntoMap ViewModelKey(UserDetailInfoViewModel::class)]
     internal abstract fun userDetailInfoViewModel(viewModel: UserDetailInfoViewModel): ViewModel
 }

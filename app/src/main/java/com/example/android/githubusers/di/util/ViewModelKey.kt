@@ -1,4 +1,4 @@
-package ru.handh.vseinstrumenti.di.util
+package com.example.android.githubusers.di.util
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

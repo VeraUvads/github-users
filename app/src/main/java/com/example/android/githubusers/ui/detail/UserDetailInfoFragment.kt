@@ -3,14 +3,11 @@ package com.example.android.githubusers.ui.detail
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.example.android.githubusers.R
 import com.example.android.githubusers.data.model.UserDetailInfo
-import com.example.android.githubusers.di.ViewModelFactory
 import com.example.android.githubusers.extensions.appComponent
 import com.example.android.githubusers.ui.base.BaseFragment
-import com.example.android.githubusers.ui.list.UserListFragment
 import com.example.android.githubusers.utils.Response
 import kotlinx.android.synthetic.main.fragment_user_detail_info.*
 import javax.inject.Inject
@@ -18,36 +15,31 @@ import javax.inject.Inject
 class UserDetailInfoFragment : BaseFragment(R.layout.fragment_user_detail_info) {
 
     @Inject
-    lateinit var viewModelFactory: dagger.Lazy<ViewModelFactory>
-
-    private lateinit var nickName: String // todo
-
-    companion object {
-        fun newInstance(nickName: String) = UserDetailInfoFragment().apply {
-            this.nickName = nickName
-        }
-    }
-
-    private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory.get())[UserDetailInfoViewModel::class.java]
-    }
+    lateinit var viewModel: UserDetailInfoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context?.appComponent?.inject(this)
-        viewModel.getUserDetails(nickName)
+        arguments?.let {
+            val nickName = it.getString(NICKNAME)
+            viewModel.getUserDetails(nickName!!)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelSubscribe()
+        observe()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setNavigationOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
-    private fun viewModelSubscribe() {
+    private fun observe() {
         viewModel.userLiveData.observe(
             viewLifecycleOwner
         ) { response ->
@@ -68,5 +60,15 @@ class UserDetailInfoFragment : BaseFragment(R.layout.fragment_user_detail_info) 
         nickname.text = data.login
         location.text = data.location
         link.text = data.html_url
+    }
+
+    companion object {
+        private const val NICKNAME = "NICKNAME"
+        fun newInstance(nickName: String) = UserDetailInfoFragment().apply {
+            val bundle = Bundle().apply {
+                putString(NICKNAME, nickName)
+            }
+            arguments = bundle
+        }
     }
 }

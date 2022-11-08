@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubUsers">
         <activity android:name=".MainActivity"
+            android:screenOrientation="sensor"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
