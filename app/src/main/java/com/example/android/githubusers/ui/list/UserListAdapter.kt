@@ -10,10 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.android.githubusers.R
 import com.example.android.githubusers.data.model.User
 
-class UserListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserListAdapter(private val onItemClickListener: (content: User) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var userList: MutableList<User> = mutableListOf()
-    var onItemClickListener: (content: User) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return UserItemViewHolder(
@@ -28,14 +28,15 @@ class UserListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun addContent(users: List<User>) {
+        val lengthBeforeUpdate = users.size
         this.userList.addAll(users)
-        notifyDataSetChanged() // todo 
+        notifyItemRangeChanged(lengthBeforeUpdate, users.size)
     }
 
     inner class UserItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val avatar = itemView.findViewById<ImageView>(R.id.avatar)
-        val name = itemView.findViewById<TextView>(R.id.name)
+        private val avatar: ImageView = itemView.findViewById(R.id.avatar)
+        private val name: TextView = itemView.findViewById(R.id.name)
 
         fun bind(content: User) {
             Glide.with(itemView.context).load(content.avatar_url).into(avatar)

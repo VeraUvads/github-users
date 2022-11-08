@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.example.android.githubusers.R
+import com.example.android.githubusers.data.model.User
 import com.example.android.githubusers.di.ViewModelFactory
 import com.example.android.githubusers.extensions.appComponent
 import com.example.android.githubusers.ui.base.BaseFragment
@@ -17,10 +18,10 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
     @Inject
     lateinit var viewModelFactory: dagger.Lazy<ViewModelFactory>
 
-    private val userListAdapter = UserListAdapter()
+    private val userListAdapter = UserListAdapter(::navigateToDetail)
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory.get()).get(UserListViewModel::class.java)
+        ViewModelProviders.of(this, viewModelFactory.get())[UserListViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,14 +33,14 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // todo
-
-        userListAdapter.onItemClickListener = {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, UserDetailInfoFragment.newInstance(it.login))
-                .commit()
-        }
         recyclerView.adapter = userListAdapter
+    }
+
+    private fun navigateToDetail(user: User) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, UserDetailInfoFragment.newInstance(user.login))
+            .addToBackStack("UserListFragment")
+            .commit()
     }
 
     private fun viewModelSubscribe() {

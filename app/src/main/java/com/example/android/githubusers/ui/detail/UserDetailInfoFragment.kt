@@ -43,9 +43,7 @@ class UserDetailInfoFragment : BaseFragment(R.layout.fragment_user_detail_info) 
         viewModelSubscribe()
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         toolbar.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, UserListFragment())
-                .commit()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
