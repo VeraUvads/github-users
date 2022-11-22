@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.githubusers.R
-import com.example.android.githubusers.data.model.User
+import com.example.android.githubusers.data_user.datasource.remote.model.User
 
-class UserListAdapter(private val onItemClickListener: (content: User) -> Unit) :
+class UserListAdapter(private val onItemClickListener: (content: com.example.android.githubusers.data_user.datasource.remote.model.User) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var userList: MutableList<User> = mutableListOf()
+    var userList: MutableList<com.example.android.githubusers.data_user.datasource.remote.model.User> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return UserItemViewHolder(
@@ -27,7 +27,7 @@ class UserListAdapter(private val onItemClickListener: (content: User) -> Unit) 
         (holder as UserItemViewHolder).bind(userList[position])
     }
 
-    fun addContent(users: List<User>) {
+    fun addContent(users: List<com.example.android.githubusers.data_user.datasource.remote.model.User>) {
         val lengthBeforeUpdate = users.size
         this.userList.addAll(users)
         notifyItemRangeChanged(lengthBeforeUpdate, users.size)
@@ -38,7 +38,7 @@ class UserListAdapter(private val onItemClickListener: (content: User) -> Unit) 
         private val avatar: ImageView = itemView.findViewById(R.id.avatar)
         private val name: TextView = itemView.findViewById(R.id.name)
 
-        fun bind(content: User) {
+        fun bind(content: com.example.android.githubusers.data_user.datasource.remote.model.User) {
             Glide.with(itemView.context).load(content.avatar_url).into(avatar)
             name.text = content.login
             itemView.setOnClickListener {

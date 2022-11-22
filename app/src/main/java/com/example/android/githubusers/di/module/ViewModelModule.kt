@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.githubusers.di.ViewModelFactory
 import com.example.android.githubusers.di.util.ViewModelKey
-import com.example.android.githubusers.ui.detail.UserDetailInfoViewModel
+import com.example.android.githubusers.feature.user_details.detail.UserDetailInfoViewModel
 import com.example.android.githubusers.ui.list.UserListViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,6 +22,6 @@ abstract class ViewModelModule {
     internal abstract fun userListViewModel(viewModel: UserListViewModel): ViewModel
 
     @Binds
-    @[IntoMap ViewModelKey(UserDetailInfoViewModel::class)]
-    internal abstract fun userDetailInfoViewModel(viewModel: UserDetailInfoViewModel): ViewModel
+    @[IntoMap ViewModelKey(com.example.android.githubusers.feature.user_details.detail.UserDetailInfoViewModel::class)]
+    internal abstract fun userDetailInfoViewModel(viewModel: com.example.android.githubusers.feature.user_details.detail.UserDetailInfoViewModel): ViewModel
 }

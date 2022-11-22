@@ -59,4 +59,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
+    implementation project(path: ':feature:user-details')
+    implementation project(path: ':feature:user-list')
+
 }

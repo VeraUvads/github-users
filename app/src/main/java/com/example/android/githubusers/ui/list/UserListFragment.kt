@@ -3,15 +3,15 @@ package com.example.android.githubusers.ui.list
 import android.os.Bundle
 import android.view.View
 import com.example.android.githubusers.R
-import com.example.android.githubusers.data.model.User
-import com.example.android.githubusers.extensions.appComponent
-import com.example.android.githubusers.ui.base.BaseFragment
-import com.example.android.githubusers.ui.detail.UserDetailInfoFragment
+import com.example.android.githubusers.data_user.datasource.remote.model.User
+import com.example.android.githubusers.utils.extensions.appComponent
+import com.example.android.githubusers.utils.network.base.BaseFragment
+import com.example.android.githubusers.feature.user_details.detail.UserDetailInfoFragment
 import com.example.android.githubusers.utils.Response
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import javax.inject.Inject
 
-class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
+class UserListFragment : com.example.android.githubusers.utils.network.base.BaseFragment(R.layout.fragment_user_list) {
 
     private val userListAdapter = UserListAdapter(::navigateToDetail)
 
@@ -30,9 +30,9 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
         recyclerView.adapter = userListAdapter
     }
 
-    private fun navigateToDetail(user: User) {
+    private fun navigateToDetail(user: com.example.android.githubusers.data_user.datasource.remote.model.User) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, UserDetailInfoFragment.newInstance(user.login))
+            .add(R.id.fragment_container, com.example.android.githubusers.feature.user_details.detail.UserDetailInfoFragment.newInstance(user.login))
             .addToBackStack("UserListFragment")
             .commit()
     }
@@ -42,7 +42,7 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
             this
         ) { response ->
             when (response) {
-                is Response.Success -> {
+                is com.example.android.githubusers.utils.Response.Success -> {
                     userListAdapter.addContent(response.data.toMutableList())
                 }
                 else -> {}

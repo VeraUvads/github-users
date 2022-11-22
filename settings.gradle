@@ -1,2 +1,7 @@
 include ':app'
 rootProject.name = "GitHubUsers"
+include ':common:utils'
+include ':data:user'
+include ':feature:user-list'
+include ':feature:user-details'
+include ':common:resources'

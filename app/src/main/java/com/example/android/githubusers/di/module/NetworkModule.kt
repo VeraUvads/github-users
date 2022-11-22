@@ -1,6 +1,6 @@
 package com.example.android.githubusers.di.module
 
-import com.example.android.githubusers.data.RestApiService
+import com.example.android.githubusers.data_user.datasource.remote.RestApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -18,13 +18,13 @@ open class NetworkModule {
     fun provideApiService(
         gsonConverterFactory: GsonConverterFactory,
         callAdapterFactory: RxJava2CallAdapterFactory
-    ): RestApiService {
+    ): com.example.android.githubusers.data_user.datasource.remote.RestApiService {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com")
             .addConverterFactory(gsonConverterFactory)
             .addCallAdapterFactory(callAdapterFactory)
             .build()
-            .create(RestApiService::class.java)
+            .create(com.example.android.githubusers.data_user.datasource.remote.RestApiService::class.java)
     }
 
     @Provides
